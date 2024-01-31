@@ -7,6 +7,7 @@ import { GameEvents } from "@public/shared/Enums/gameEvents";
 import { Deferrals } from "@public/shared/Types/GameEvents.types";
 import fetch from "node-fetch";
 import { ConfigProvider } from "../Config/config.provdier";
+import { DatabaseBanService } from "../Database/database.ban.service";
 
 @Provider()
 export class PlayerProvider {
@@ -16,6 +17,9 @@ export class PlayerProvider {
 
     @Inject(ConfigProvider)
     private config: ConfigProvider;
+
+    @Inject(DatabaseBanService)
+    private databaseBanService: DatabaseBanService;
 
     private badNames: Set<string> = new Set();
 
@@ -37,6 +41,11 @@ export class PlayerProvider {
 
         if (!this.IsAlphaNumeric(name) || this.badNames.has(name)) {
             deferrals.done(this.badNames.has(name) ? "Your name contains bad words!" : "Your name is not alphanumeric!");
+            return;
+        }
+
+        if (await this.databaseBanService.isPlayerBanned(source)) {
+            deferrals.done("You are banned!");
             return;
         }
 

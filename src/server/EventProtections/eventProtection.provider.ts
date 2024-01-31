@@ -9,6 +9,8 @@ import { ConfigProvider } from "../Config/config.provdier";
 import { Weapons } from "@public/shared/Enums/weapons";
 import { Tick, TickInterval } from "@public/core/decorators/tick";
 import { wait } from "@public/core/utils";
+import { SettingsProvider } from "../Config/settings.provider";
+import { ApplicationBanProvider } from "../Application/application.ban.provider";
 
 @Provider()
 export class EventProtection {
@@ -20,6 +22,12 @@ export class EventProtection {
 
     @Inject(ConfigProvider)
     private config: ConfigProvider;
+
+    @Inject(SettingsProvider)
+    private settings: SettingsProvider;
+
+    @Inject(ApplicationBanProvider)
+    private applicationBanProvider: ApplicationBanProvider;
 
     private _offsetDist: number = 4.5;
     private _maxFireDistance: number = 128.0;
@@ -63,6 +71,7 @@ export class EventProtection {
 
     @On(GameEvents.WeaponDamageEvent, false)
     private onAimbot(source: number, data: WeaponDamageEvent) {
+        if (!this.settings.getSettings("Anti-Aimbot").Enabled) return;
         const target = data.hitGlobalId || data.hitGlobalIds[0];
         const weaponType = data.weaponType;
 
@@ -90,23 +99,27 @@ export class EventProtection {
         if (this.serverUtils.getDistance(killerCoords, extendedForward, false) < this._offsetDist) {
             this.logger.warn(`[EventProtection]: Aimbot detected!`);
             ///!TODO: Ban-Event
+            this.applicationBanProvider.banPlayer(source, this.settings.getSettings("Anti-Aimbot").Message, this.settings.getSettings("Anti-Aimbot").Duration);
             CancelEvent()
         }
     }
 
     @On(GameEvents.WeaponDamageEvent, false)
     private OnGodmode(_: number, data: WeaponDamageEvent) {
+        if (!this.settings.getSettings("Anti-Godmode").Enabled) return;
         const netId = data.hitGlobalId || data.hitGlobalIds[0];
         const target = NetworkGetEntityFromNetworkId(netId);
         if (IsPedAPlayer(target) && GetPlayerInvincible(target.toString())) {
             this.logger.warn(`[EventProtection]: Godmode detected!`);
             ///!TODO: Ban-Event
+            this.applicationBanProvider.banPlayer(source, this.settings.getSettings("Anti-Godmode").Message, this.settings.getSettings("Anti-Godmode").Duration);
             CancelEvent()
         }
     }
 
     @On(GameEvents.WeaponDamageEvent, false)
     private TazerReach(source: number, data: WeaponDamageEvent) {
+        if (!this.settings.getSettings("TazerReach").Enabled) return;
         switch (data.weaponType) {
             case Weapons.WEAPON_STUNGUN:
             case Weapons.WEAPON_STUNGUN_MP:
@@ -116,6 +129,8 @@ export class EventProtection {
 
                 if (this.serverUtils.getDistance(GetEntityCoords(killer), GetEntityCoords(victim), true) > this._tazerRange) {
                     this.logger.warn("[EventProtection]: Tazer Reach detected!");
+                    ///!TODO: Ban-Event
+                    this.applicationBanProvider.banPlayer(source, this.settings.getSettings("TazerReach").Message, this.settings.getSettings("TazerReach").Duration);
                     CancelEvent();
                 }
                 break;
@@ -126,11 +141,13 @@ export class EventProtection {
 
     @On(GameEvents.WeaponDamageEvent, false)
     private onTazerCooldown(source: number, data: WeaponDamageEvent) {
+        if (!this.settings.getSettings("TazerReach").Enabled) return;
         switch (data.weaponType) {
             case Weapons.WEAPON_STUNGUN:
             case Weapons.WEAPON_STUNGUN_MP:
                 if (this._onCooldown.has(source)) {
                     this.logger.warn("[EventProtection]: Tazer cooldown detected!");
+                    this.applicationBanProvider.banPlayer(source, this.settings.getSettings("TazerReach").Message, this.settings.getSettings("TazerReach").Duration);
                     CancelEvent();
                 } else {
                     this._onCooldown.add(source);
@@ -146,6 +163,7 @@ export class EventProtection {
 
     @On(GameEvents.WeaponDamageEvent, false)
     private async onTazerRagdoll(source: number, data: WeaponDamageEvent) {
+        if (!this.settings.getSettings("TazerReach").Enabled) return;
         switch (data.weaponType) {
             case Weapons.WEAPON_STUNGUN:
             case Weapons.WEAPON_STUNGUN_MP:
@@ -164,6 +182,7 @@ export class EventProtection {
                 }
                 if (!hasRagdolled) {
                     this.logger.warn("[EventProtection]: Tazer ragdoll detected!");
+                    this.applicationBanProvider.banPlayer(source, this.settings.getSettings("TazerReach").Message, this.settings.getSettings("TazerReach").Duration);
                     CancelEvent();
                 }
                 break;
@@ -182,9 +201,12 @@ export class EventProtection {
     }
 
     @On(GameEvents.WeaponDamageEvent, false)
-    private async WeaponModifier(source: string) {
+    private async WeaponModifier(source: number) {
+        if (!this.settings.getSettings("Anti-BlacklistedWeapons").Enabled) return;
         if ((GetPlayerMeleeWeaponDamageModifier(source) || GetPlayerWeaponDamageModifier(source) || GetPlayerWeaponDefenseModifier(source)) > this._damageModifier) {
             this.logger.warn(`[EventProtection]: Illegal Weapon Modifier used!`);
+            ///!TODO: Ban-Event
+            this.applicationBanProvider.banPlayer(source, this.settings.getSettings("Anti-BlacklistedWeapons").Message, this.settings.getSettings("Anti-BlacklistedWeapons").Duration);
             CancelEvent();
             return;
         }
@@ -192,6 +214,7 @@ export class EventProtection {
 
     @On(GameEvents.ChatMessage, false)
     private onChatMessage(source: number, _: string, message: string) {
+        if (!this.settings.getSettings("Chat-Message-Profane").Enabled) return;
         if (message.startsWith("/") && this._BadWordsList.has(message)) {
             this.logger.warn(`[EventProtection]: Illegal Chat Command used!`);
             ///!TODO: Ban-Event
@@ -216,6 +239,7 @@ export class EventProtection {
 
     @On(GameEvents.ClearPedTasksEvent, false)
     private onClearPedTasks(source: number) {
+        this.applicationBanProvider.banPlayer(source, this.settings.getSettings("Anti-ClearTasks").Message, this.settings.getSettings("ClearPedTasks").Duration);
         this.logger.warn("[EventProtection]: ClearPedTasksEvent detected!");
         ///!TODO: Ban-Event
         CancelEvent()
@@ -223,12 +247,14 @@ export class EventProtection {
 
     @On(GameEvents.EntityCreated, false)
     private onEntityCreated(entity: number) {
+        if (!this.settings.getSettings("Anti-Model-Object-Vehicle-Spawner").Enabled) return;
         if (!DoesEntityExist(entity)) return;
         const owner: number = NetworkGetFirstEntityOwner(entity);
 
         if (this._BlacklistEntities.has(GetEntityModel(entity))) {
             this.logger.warn(`[EventProtection]: Illegal Entity created!`);
             DeleteEntity(entity)
+            this.applicationBanProvider.banPlayer(source, this.settings.getSettings("Anti-Model-Object-Vehicle-Spawner").Message, this.settings.getSettings("Anti-Model-Object-Vehicle-Spawner").Duration);
             ///!TODO: Ban-Event
             CancelEvent()
             return;
@@ -238,6 +264,7 @@ export class EventProtection {
         if (rootEntity > 0 && NetworkGetFirstEntityOwner(rootEntity) !== owner) {
             this.logger.warn(`[EventProtection]: Illegal Entity created!`);
             DeleteEntity(entity)
+            this.applicationBanProvider.banPlayer(source, this.settings.getSettings("Anti-Model-Object-Vehicle-Spawner").Message, this.settings.getSettings("Anti-Model-Object-Vehicle-Spawner").Duration);
             ///!TODO: Ban-Event
             CancelEvent()
             return;
@@ -255,6 +282,7 @@ export class EventProtection {
         }
         if (GetEntityType(entity) === 1 && this._BlacklistedWeapons.has(weapon)) {
             this.logger.warn(`[EventProtection]: Illegal Entity with Weapon created!`);
+            this.applicationBanProvider.banPlayer(source, this.settings.getSettings("Anti-Model-Object-Vehicle-Spawner").Message, this.settings.getSettings("Anti-Model-Object-Vehicle-Spawner").Duration);
             DeleteEntity(entity)
             ///!TODO: Ban-Event
             CancelEvent()
@@ -274,6 +302,7 @@ export class EventProtection {
 
     @On(GameEvents.FireEvent, false)
     private onFireEvent(source: number, data: any) {
+        if (!this.settings.getSettings("Anti-Fire").Enabled) return;
         if (!data.isEntity || source == data.entityGlobalId) return;
 
         const victim = NetworkGetEntityFromNetworkId(data.entityGlobalId ?? 0);
@@ -284,6 +313,7 @@ export class EventProtection {
 
         if (dist > this._maxFireDistance) {
             this.logger.warn(`[EventProtection]: FireEvent detected!`);
+            this.applicationBanProvider.banPlayer(source, this.settings.getSettings("Anti-Fire").Message, this.settings.getSettings("Anti-Fire").Duration);
             ///!TODO: Ban-Event
             CancelEvent()
             return;

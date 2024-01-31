@@ -27,7 +27,10 @@ export class ApplicationBanProvider {
 
     @Exportable("banPlayer")
     @OnEvent("rNetworks:Anticheat:BanPlayer.server")
-    public async banPlayer(player: number, reason: string, duration: number): Promise<void> {
-
+    public async banPlayer(player: number, reason: string = "System-Ban", duration: number = 30): Promise<void> {
+        if (player === 0) return;
+        await this.databaseBanService.insertBan(source, reason, duration);
+        this.logger.info(`BanPlayer: ${player} | Reason: ${reason} | Duration: ${duration}`)
+        DropPlayer(player.toString(), reason);
     }
 }

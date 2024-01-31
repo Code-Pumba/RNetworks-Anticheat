@@ -1,12 +1,12 @@
 export type Ban = {
-    id: number;
+    id?: number;
     Steam: string;
     FiveM: string;
     Discord: string;
     Token: string;
     Token_2: string;
-    Reason: string;
-    Duration: string;
+    Reason?: string;
+    Duration?: string;
 }
 
 // BanInterface.ts
