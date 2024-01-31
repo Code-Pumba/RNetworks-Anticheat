@@ -1,6 +1,6 @@
-[RNetworks-Anticheat] License Version 1.0
+RNetworks-Anticheat License Version 1.0
 
-The [RNetworks-Anticheat] software is released under the Creative Commons License (CC BY-NC-SA) Version 4.0.
+The RNetworks-Anticheat software is released under the Creative Commons License (CC BY-NC-SA) Version 4.0.
 
 Terms of Use:
 Distribution: You may distribute and copy the software.
@@ -13,9 +13,9 @@ Same Conditions: If you modify, adapt, or build upon the software, you must lice
 
 For the full license terms, please visit: Link to CC BY-NC-SA License Version 4.0
 
-[RNetworks-Anticheat] License Version 0.0.1
+RNetworks-Anticheat License Version 0.0.1
 
-Die Software [RNetworks-Anticheat] wird unter der Creative Commons-Lizenz (CC BY-NC-SA) Version 4.0 veröffentlicht.
+Die Software RNetworks-Anticheat wird unter der Creative Commons-Lizenz (CC BY-NC-SA) Version 4.0 veröffentlicht.
 
 Nutzungsbedingungen:
 Weitergabe: Sie dürfen die Software verbreiten und kopieren.

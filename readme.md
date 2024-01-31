@@ -4,7 +4,7 @@ Welcome to RNetworks-Anticheat!
 
 ## Description
 
-RNetworks-Anticheat is an open-source anti-cheat system designed to prevent cheating and unauthorized behavior in online games and applications. It provides a set of tools and algorithms to detect and mitigate cheating attempts, ensuring fair gameplay and maintaining the integrity of the system.
+RNetworks-Anticheat is an open-source anti-cheat system designed to prevent cheating and unauthorized behavior in FiveM. It provides a set of tools and algorithms to detect and mitigate cheating attempts, ensuring fair gameplay and maintaining the integrity of the system.
 
 ## Features
 
