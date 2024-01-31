@@ -32,7 +32,7 @@ Contributions to RNetworks-Anticheat are welcome! If you'd like to contribute, p
 
 ## License
 
-RNetworks-Anticheat is licensed under the [License Name] License. See the [LICENSE](LICENSE) file for details.
+RNetworks-Anticheat is licensed under the Creative Commons License License. See the [LICENSE](license.md) file for details.
 
 ## Acknowledgements
 
