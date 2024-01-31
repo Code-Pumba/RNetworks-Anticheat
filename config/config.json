@@ -1,0 +1,127 @@
+{
+    "Settings": {},
+    "Modules": {
+        "Event-Protection": {
+            "Enabled": true,
+            "Action": "Ban",
+            "Message": "[EventProtection] You have been banned for using an Blacklisted event",
+            "Duration": 30
+        },
+        "Anti-Aimbot": {
+            "Enabled": true,
+            "Action": "Ban",
+            "Message": "[EventProtection] You have been banned for using an Blacklisted event",
+            "Duration": 30,
+            "Addons": {
+                "MaxOffset": 30.0
+            }
+        },
+        "Anti-Godmode": {
+            "Enabled": true,
+            "Action": "Ban",
+            "Message": "[EventProtection] You have been banned for using an Blacklisted event",
+            "Duration": 30,
+            "Addons": {}
+        },
+        "TazerReach": {
+            "Enabled": true,
+            "Action": "Ban",
+            "Message": "[EventProtection] You have been banned for using an Blacklisted event",
+            "Duration": 30,
+            "Addons": {
+                "TazerRange": 10.0,
+                "TazerCooldown": 128.0
+            }
+        },
+        "Anti-BlacklistedWeapons": {
+            "Enabled": true,
+            "Action": "Ban",
+            "Message": "[EventProtection] You have been banned for using an Blacklisted event",
+            "Duration": 30,
+            "Addons": {}
+        },
+        "Chat-Message-Profane": {
+            "Enabled": true,
+            "Action": "Ban",
+            "Message": "[EventProtection] You have been banned for using an Blacklisted event",
+            "Duration": 30,
+            "Addons": {}
+        },
+        "Anti-ClearTasks": {
+            "Enabled": true,
+            "Action": "Ban",
+            "Message": "[EventProtection] You have been banned for using an Blacklisted event",
+            "Duration": 30,
+            "Addons": {}
+        },
+        "Anti-Model-Object-Vehicle-Spawner": {
+            "Enabled": true,
+            "Action": "Ban",
+            "Message": "[EventProtection] You have been banned for using an Blacklisted event",
+            "Duration": 30,
+            "Addons": {}
+        },
+        "Anti-Fire": {
+            "Enabled": true,
+            "Action": "Ban",
+            "Message": "[EventProtection] You have been banned for using an Blacklisted event",
+            "Duration": 30,
+            "Addons": {
+                "MaxFireDistance": 30.0
+            }
+        },
+        "Anti-Noclip": {
+            "Enabled": true,
+            "Action": "Ban",
+            "Message": "[EventProtection] You have been banned for using an Blacklisted event",
+            "Duration": 30,
+            "Addons": {
+                "MaxNoclipSpeedThreshold": 30.0
+            }
+        },
+        "Anti-PTFX": {
+            "Enabled": true,
+            "Action": "Ban",
+            "Message": "[EventProtection] You have been banned for using an Blacklisted event",
+            "Duration": 30,
+            "Addons": {
+                "MaxParticleScale": 1.0
+            }
+        },
+        "Anti-ModelChanger": {
+            "Enabled": true,
+            "Action": "Ban",
+            "Message": "[EventProtection] You have been banned for using an Blacklisted event",
+            "Duration": 30,
+            "Addons": {}
+        },
+        "Anti-RemoveWeapons": {
+            "Enabled": true,
+            "Action": "Ban",
+            "Message": "[EventProtection] You have been banned for using an Blacklisted event",
+            "Duration": 30,
+            "Addons": {}
+        },
+        "Anti-Projectile": {
+            "Enabled": true,
+            "Action": "Ban",
+            "Message": "[EventProtection] You have been banned for using an Blacklisted event",
+            "Duration": 30,
+            "Addons": {}
+        },
+        "Anti-VPN": {
+            "Enabled": true,
+            "Action": "Ban",
+            "Message": "[EventProtection] You have been banned for using an Blacklisted event",
+            "Duration": 30,
+            "Addons": {}
+        },
+        "Anti-ForbiddenName": {
+            "Enabled": true,
+            "Action": "Ban",
+            "Message": "[EventProtection] You have been banned for using an Blacklisted event",
+            "Duration": 30,
+            "Addons": {}
+        }
+    }
+}
