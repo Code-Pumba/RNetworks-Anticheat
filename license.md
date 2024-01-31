@@ -11,7 +11,7 @@ Non-Commercial Use: You may not use the software for commercial purposes.
 
 Same Conditions: If you modify, adapt, or build upon the software, you must license your modifications under the same terms.
 
-For the full license terms, please visit: Link to CC BY-NC-SA License Version 4.0
+For the full license terms, please visit: [Link zur CC BY-NC-SA Lizenz Version 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)
 
 RNetworks-Anticheat License Version 0.0.1
 
@@ -26,4 +26,4 @@ Nicht-kommerzielle Nutzung: Sie dürfen die Software nicht für kommerzielle Zwe
 
 Gleiche Bedingungen: Wenn Sie die Software modifizieren, anpassen oder darauf aufbauen, müssen Sie Ihre Änderungen unter denselben Bedingungen lizenzieren.
 
-Die vollständigen Lizenzbedingungen finden Sie unter: Link zur CC BY-NC-SA Lizenz Version 4.0
+Die vollständigen Lizenzbedingungen finden Sie unter: [Link zur CC BY-NC-SA Lizenz Version 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en)
