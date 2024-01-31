@@ -6,6 +6,10 @@ Welcome to RNetworks-Anticheat!
 
 RNetworks-Anticheat is an open-source anti-cheat system designed to prevent cheating and unauthorized behavior in FiveM. It provides a set of tools and algorithms to detect and mitigate cheating attempts, ensuring fair gameplay and maintaining the integrity of the system.
 
+## Current State
+
+The current version of the resource is not useable. There is currently not a functioning ban system. - Last Update: 31.01.2024 | 13:00
+
 ## Features
 
 -   Real-time cheat detection
