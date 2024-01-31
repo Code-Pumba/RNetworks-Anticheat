@@ -1,10 +1,10 @@
-# [RNetworks-Anticheat]
+# RNetworks-Anticheat
 
-Welcome to [RNetworks-Anticheat]!
+Welcome to RNetworks-Anticheat!
 
 ## Description
 
-[RNetworks-Anticheat] is an open-source anti-cheat system designed to prevent cheating and unauthorized behavior in online games and applications. It provides a set of tools and algorithms to detect and mitigate cheating attempts, ensuring fair gameplay and maintaining the integrity of the system.
+RNetworks-Anticheat is an open-source anti-cheat system designed to prevent cheating and unauthorized behavior in online games and applications. It provides a set of tools and algorithms to detect and mitigate cheating attempts, ensuring fair gameplay and maintaining the integrity of the system.
 
 ## Features
 
@@ -17,7 +17,7 @@ Welcome to [RNetworks-Anticheat]!
 
 ### Comming Soon
 
-To get started with [RNetworks-Anticheat], please refer to the [documentation](link-to-documentation) for installation instructions, configuration options, and usage guidelines.
+To get started with RNetworks-Anticheat, please refer to the [documentation](link-to-documentation) for installation instructions, configuration options, and usage guidelines.
 
 ## Support and Community
 
@@ -28,16 +28,16 @@ Our community is friendly and active, and we're here to help you with any issues
 
 ## Contributing
 
-Contributions to [RNetworks-Anticheat] are welcome! If you'd like to contribute, please fork the repository, make your changes, and submit a pull request. Make sure to follow our [contribution guidelines](link-to-contribution-guidelines) for a smooth collaboration process.
+Contributions to RNetworks-Anticheat are welcome! If you'd like to contribute, please fork the repository, make your changes, and submit a pull request. Make sure to follow our [contribution guidelines](link-to-contribution-guidelines) for a smooth collaboration process.
 
 ## License
 
-[RNetworks-Anticheat] is licensed under the [License Name] License. See the [LICENSE](LICENSE) file for details.
+RNetworks-Anticheat is licensed under the [License Name] License. See the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgements
 
-We would like to thank all contributors and supporters who have helped make [RNetworks-Anticheat] possible.
+We would like to thank all contributors and supporters who have helped make RNetworks-Anticheat possible.
 
 ## Disclaimer
 
-[RNetworks-Anticheat] is provided as-is and without warranty. Use it at your own risk.
+RNetworks-Anticheat is provided as-is and without warranty. Use it at your own risk.
