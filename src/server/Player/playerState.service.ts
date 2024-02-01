@@ -8,13 +8,19 @@ export class PlayerStateService {
     @Inject(Logger)
     private logger: Logger;
 
-    public getIdentifiers(source: number): Ban {
-        return {
-            Steam: GetPlayerIdentifierByType(source.toString(), "steam"),
-            FiveM: GetPlayerIdentifierByType(source.toString(), "license"),
-            Discord: GetPlayerIdentifierByType(source.toString(), "discord"),
-            Token: GetPlayerToken(source.toString(), 0),
-            Token_2: GetPlayerToken(source.toString(), GetNumPlayerTokens(source.toString())),
+    public getCredentials(source: number): Ban {
+        try {
+            const Identifier = {
+                Steam: GetPlayerIdentifierByType(source, "steam"),
+                FiveM: GetPlayerIdentifierByType(source, "license"),
+                Discord: GetPlayerIdentifierByType(source, "discord"),
+                Token: GetPlayerToken(source, 0),
+                Token_2: GetPlayerToken(source, GetNumPlayerTokens(source)),
+            }
+            this.logger.debug(JSON.stringify(Identifier))
+            return Identifier
+        } catch (error) {
+            this.logger.error(error)
         }
     }
 }

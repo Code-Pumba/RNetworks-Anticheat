@@ -79,7 +79,7 @@ export class EventProtection {
         const victim = NetworkGetEntityFromNetworkId(target);
         if (!DoesEntityExist(victim) || !IsPedAPlayer(victim) || GetEntityHealth(victim) === 0 || IsPedRagdoll(victim)) return;
 
-        const sender = source.toString();
+        const sender = source;
         const killer = GetPlayerPed(sender);
 
         if (GetVehiclePedIsIn(killer, false) !== 0) return;
@@ -109,7 +109,7 @@ export class EventProtection {
         if (!this.settings.getSettings("Anti-Godmode").Enabled) return;
         const netId = data.hitGlobalId || data.hitGlobalIds[0];
         const target = NetworkGetEntityFromNetworkId(netId);
-        if (IsPedAPlayer(target) && GetPlayerInvincible(target.toString())) {
+        if (IsPedAPlayer(target) && GetPlayerInvincible(target)) {
             this.logger.warn(`[EventProtection]: Godmode detected!`);
             ///!TODO: Ban-Event
             this.applicationBanProvider.banPlayer(source, this.settings.getSettings("Anti-Godmode").Message, this.settings.getSettings("Anti-Godmode").Duration);
@@ -123,7 +123,7 @@ export class EventProtection {
         switch (data.weaponType) {
             case Weapons.WEAPON_STUNGUN:
             case Weapons.WEAPON_STUNGUN_MP:
-                const killer: number = GetPlayerPed(source.toString());
+                const killer: number = GetPlayerPed(source);
                 const victim: number = NetworkGetEntityFromNetworkId(data.hitGlobalId || data.hitGlobalIds[0]);
                 if (!DoesEntityExist(victim) || !IsPedAPlayer(victim)) return;
 
@@ -174,7 +174,7 @@ export class EventProtection {
 
                 let hasRagdolled = false;
                 const start = GetGameTimer();
-                const threshold = 3000 + GetPlayerPing(target.toString());
+                const threshold = 3000 + GetPlayerPing(target);
 
                 while (!hasRagdolled && GetGameTimer() - start < threshold) {
                     if (IsPedRagdoll(victim)) hasRagdolled = true;
@@ -215,23 +215,14 @@ export class EventProtection {
     @On(GameEvents.ChatMessage, false)
     private onChatMessage(source: number, _: string, message: string) {
         if (!this.settings.getSettings("Chat-Message-Profane").Enabled) return;
-        if (message.startsWith("/") && this._BadWordsList.has(message)) {
-            this.logger.warn(`[EventProtection]: Illegal Chat Command used!`);
+
+        const firstChar = message[0];
+        if (message.length > 0 && (firstChar === '/' || firstChar === '!' || firstChar === '@') && this._BadWordsList.has(message)) {
+            this.logger.warn(`[EventProtection]: Illegal Chat Command used! By ${GetPlayerName(source)}`);
             ///!TODO: Ban-Event
             CancelEvent()
-        }
-        if (message.startsWith("!") && this._BadWordsList.has(message)) {
-            this.logger.warn(`[EventProtection]: Illegal Chat Command used!`);
-            ///!TODO: Ban-Event
-            CancelEvent()
-        }
-        if (message.startsWith("@") && this._BadWordsList.has(message)) {
-            this.logger.warn(`[EventProtection]: Illegal Chat Command used!`);
-            ///!TODO: Ban-Event
-            CancelEvent()
-        }
-        if (this._BadWordsList.has(message)) {
-            this.logger.warn(`[EventProtection]: Illegal Chat Command used!`);
+        } else if (this._BadWordsList.has(message)) {
+            this.logger.warn(`[EventProtection]: Illegal Chat Command used! By ${GetPlayerName(source)}`);
             ///!TODO: Ban-Event
             CancelEvent()
         }
@@ -294,6 +285,7 @@ export class EventProtection {
     private onExplosion(source: number, data: ExplosionEvent) {
         if (!this._WhitelistedExplosions.has(data.explosionType) || data.damageScale > 1.0 || data.isInvisible) {
             this.logger.warn(`[EventProtection]: Explosion detected!`);
+            this.applicationBanProvider.banPlayer(source, this.settings.getSettings("Anti-Fire").Message, this.settings.getSettings("Anti-Fire").Duration);
             ///!TODO: Ban-Event
             CancelEvent()
             return;
@@ -308,7 +300,7 @@ export class EventProtection {
         const victim = NetworkGetEntityFromNetworkId(data.entityGlobalId ?? 0);
         if (!DoesEntityExist(victim)) return;
 
-        const ped = GetPlayerPed(source.toString())
+        const ped = GetPlayerPed(source)
         const dist = this.serverUtils.getDistance(GetEntityCoords(ped), GetEntityCoords(victim), false);
 
         if (dist > this._maxFireDistance) {
@@ -350,8 +342,8 @@ export class EventProtection {
                 this.logger.warn(`[EventProtection]: Noclip detected!`);
                 ///!TODO: Ban-Event
             }
-
-            if (IsPlayerUsingSuperJump(player)) {
+            ///@ts-expect-error
+            if (IsPlayerUsingSuperJump(player)) { ///! FUCK CFX SHIT SOMETIMES SOURCE IS NUMBER AND SOMETIMES SOURCE IS STRING WHAT IS IT !!
                 this.logger.warn(`[EventProtection]: Superjump detected!`);
                 ///!TODO: Ban-Event
             }

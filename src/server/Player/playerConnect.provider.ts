@@ -34,17 +34,26 @@ export class PlayerProvider {
         setKickReason: (reason: string) => void,
         deferrals: Deferrals
     ): Promise<void> {
-        const Ipv4 = GetPlayerIdentifierByType(source.toString(), "ip").slice(3);
+        const _source = source
+        const Ipv4 = GetPlayerIdentifierByType(_source, "ip").slice(3);
+        const steamId = GetPlayerIdentifierByType(_source, "steam");
 
         deferrals.defer();
         await wait(0);
+
+        this.logger.debug(`PlayerConnecting: ${name} | SteamID: ${steamId} | IP: ${Ipv4}`);
+
+        if (!steamId) {
+            deferrals.done("SteamID not found!");
+            return;
+        }
 
         if (!this.IsAlphaNumeric(name) || this.badNames.has(name)) {
             deferrals.done(this.badNames.has(name) ? "Your name contains bad words!" : "Your name is not alphanumeric!");
             return;
         }
 
-        if (await this.databaseBanService.isPlayerBanned(source)) {
+        if (await this.databaseBanService.isPlayerBanned(_source)) {
             deferrals.done("You are banned!");
             return;
         }
