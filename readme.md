@@ -26,7 +26,7 @@ To get started with RNetworks-Anticheat, please refer to the [documentation](lin
 ## Support and Community
 
 If you need assistance or have any questions, feel free to join our Discord server:
-[![Discord](https://img.shields.io/discord/1202203699401719818?color=blue&label=Discord&logo=discord)](https://discord.gg/ZsTt8mFz3H)
+# [![Discord](https://img.shields.io/discord/1202203699401719818?color=blue&label=Discord&logo=discord)](https://discord.gg/aJNNZhsszr)
 
 Our community is friendly and active, and we're here to help you with any issues or concerns you may have.
 
