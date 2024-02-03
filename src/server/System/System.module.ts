@@ -1,7 +1,8 @@
 import { Module } from "@public/core/decorators/module";
+import { SystemCheckUpService } from "./System.checkUp.provider";
 
 
 @Module({
-    providers: []
+    providers: [SystemCheckUpService]
 })
 export class SystemModule { }

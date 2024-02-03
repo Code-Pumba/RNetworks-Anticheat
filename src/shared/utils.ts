@@ -2,6 +2,7 @@ import { Inject, Injectable } from "@public/core/decorators/injectable";
 import { joaat } from "./joaat";
 import { Vector3 } from "./Types/vector.types";
 import { Logger } from "@public/core/logger";
+import axios from "axios";
 
 @Injectable()
 export class Utils {
@@ -48,21 +49,52 @@ export class Utils {
     }
 
     public isAlphaNumeric(str: string): boolean {
-        return /^[a-zA-Z0-9!@#\$%\^\&*\)\(+=._-]+$/g.test(str);
+        return /^[a-zA-Z0-9!@#\$%\^\&*\)\(+=.-]+$/g.test(str);
     }
 
+
     public async hasVpn(Ip: string): Promise<boolean> {
-        const response = await fetch(`https://blackbox.ipinfo.app/lookup/${Ip}`, {
-            method: "GET",
-            headers: {
-                "User-Agent": "request"
+        try {
+            const response = await axios.get(`https://blackbox.ipinfo.app/lookup/${Ip}`, {
+                headers: {
+                    "User-Agent": "axios"
+                }
+            });
+
+            if (!response.data) {
+                throw new Error(`Empty response received`);
             }
-        })
-        if (!response.ok) {
-            this.logger.error(`HTTP ERROR! STATUS: ${response.status}`)
-            throw new Error(`HTTP ERROR! STATUS: ${response.status}`)
+
+            if (response.status === 500) { //TODO: Find a new way for Anti-Vpn
+                return false;
+            }
+
+            return response.data[0] === "Y";
+        } catch (error) {
+            if (axios.isAxiosError(error)) {
+                this.logger.error(`Axios ERROR! STATUS: ${error.response?.status}`);
+                throw new Error(`Axios ERROR! STATUS: ${error.response?.status}`);
+            } else {
+                this.logger.error(`Axios ERROR! ${error.message}`);
+                throw new Error(`Axios ERROR! ${error.message}`);
+            }
         }
-        return (await response.text())[0] == "Y";
+    }
+
+    public async isUsingVpn(playerIP: string): Promise<boolean> {
+        try {
+            const response = await axios.get(`http://check.getipintel.net/check.php?ip=${playerIP}&contact=lgerrist1808@outlook.de&flags=m`);
+
+            if (response.data) {
+                const intValue = parseFloat(response.data);
+                return intValue >= 0.5; // Return true if probability is greater than or equal to 0.5
+            }
+
+            return false; // Return false if response.data is null or undefined
+        } catch (error) {
+            console.error('Error during HTTP request:', error);
+            return false; // Return false in case of an error
+        }
     }
 
 }

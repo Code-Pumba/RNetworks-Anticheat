@@ -1,6 +1,6 @@
 {
     "Settings": {
-        "Debug": false,
+        "Debug": true,
         "Identifier": "steam",
         "Connect-Settings": {
             "VPN-Check": true,

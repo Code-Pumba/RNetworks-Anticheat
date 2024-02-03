@@ -1,4 +1,4 @@
-import { OnEvent, Once } from "@public/core/decorators/event";
+import { On, OnEvent, Once } from "@public/core/decorators/event";
 import { Inject } from "@public/core/decorators/injectable";
 import { Provider } from "@public/core/decorators/provider";
 import { GameEvents } from "@public/shared/Enums/gameEvents.enum";
@@ -32,14 +32,17 @@ export class PlayerConnection {
         this.badNames = new Set(this.config.badNameList);
     }
 
-    @OnEvent(GameEvents.PlayerConnecting)
+    @On(GameEvents.PlayerConnecting, false)
     public async onPlayerConnecting(name: string, setKickReason: (reason: string) => void, deferrals: Deferrals) {
+        const _source = source;
+        const _identifier = this.playerStateService.getAllIdentifier(_source.toString());
+        const mainIdentifier = this.config.getSettings().Identifier;
+        const ENV_Mode = this.config.getSettings().Debug;
+        const connectSettings = this.config.getSettings()["Connect-Settings"];
+        const Ip = _identifier.Ip.slice(3)
+
         deferrals.defer()
         await wait(0)
-        const _source = source;
-        const _identifier = this.playerStateService.getAllIdentifier(_source);
-        const mainIdentifier = this.config.getSettings().Identifier;
-        const connectSettings = this.config.getSettings()["Connect-Settings"];
 
         this.logger.debug(`User with the name - ${name} - is connecting to the Server`)
 
@@ -60,7 +63,7 @@ export class PlayerConnection {
 
         //! Name Filter
         if (connectSettings["Name-Filter"]) {
-            if (this.utils.isAlphaNumeric(name)) {
+            if (!this.utils.isAlphaNumeric(name)) {
                 deferrals.done("Your name contains Illegal Characters, please remove them and restart your client.")
                 this.logger.debug(`User with the Identifier ${_identifier.Steam || _identifier.FiveM} - ${name} - contains Illegal Characters`)
             }
@@ -71,10 +74,12 @@ export class PlayerConnection {
         }
 
         //! VPN Check
-        if (connectSettings["VPN-Check"]) {
-            if (this.utils.hasVpn(_identifier.Ip)) {
-                deferrals.done("You are using a VPN, please disable it and restart your client.")
-                this.logger.debug(`User with the Identifier ${_identifier.Steam || _identifier.FiveM} - ${name} - has VPN enabled`)
+        if (!ENV_Mode) {
+            if (connectSettings["VPN-Check"]) {
+                if (await this.utils.isUsingVpn(Ip)) {
+                    deferrals.done("You are using a VPN, please disable it and restart your client.")
+                    this.logger.debug(`User with the Identifier ${_identifier.Steam || _identifier.FiveM} - ${name} - has VPN enabled`)
+                }
             }
         }
 

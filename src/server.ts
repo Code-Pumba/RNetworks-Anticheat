@@ -14,6 +14,7 @@ import { DatabaseModule } from './server/Database/database.module';
 import { EventModule } from './server/Events/event.module';
 import { ConfigModule } from './server/Config/config.module';
 import { SystemModule } from './server/System/System.module';
+import { PlayerModule } from './server/Player/player.module';
 
 async function bootstrap() {
     setServiceInstance('Store', store);
@@ -26,7 +27,8 @@ async function bootstrap() {
         DatabaseModule,
         ConfigModule,
         EventModule,
-        SystemModule
+        SystemModule,
+        PlayerModule
     )
 
     await app.stop()

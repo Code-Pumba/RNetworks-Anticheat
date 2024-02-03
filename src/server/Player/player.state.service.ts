@@ -3,15 +3,15 @@ import { PlayerIdentifier } from "@public/shared/Types/player.types";
 
 @Injectable()
 export class PlayerStateService {
-    public getIdentifier(source: number, identifierType: string): string {
+    public getIdentifier(source: string, identifierType: string): string {
         return GetPlayerIdentifierByType(source, identifierType)
     }
 
-    public getPlayerToken(source: number, index: number = 0) {
+    public getPlayerToken(source: string, index: number = 0) {
         return GetPlayerToken(source, index);
     }
 
-    public getAllIdentifier(source: number): PlayerIdentifier {
+    public getAllIdentifier(source: string): PlayerIdentifier {
         return {
             FiveM: this.getIdentifier(source, "license") || "none",
             Steam: this.getIdentifier(source, "steam") || "none",
