@@ -190,7 +190,7 @@ export class EventWeaponDamage {
 
     @On(GameEvents.WeaponDamageEvent, false)
     public async weaponModifier(source: string, data: WeaponDamageEvent) {
-        const module = "Anti-BlacklistedWeapons";
+        const module = "WeaponDamageModifier";
         const _moduleSetting = this.config.getModuleSetting(module);
         if (!_moduleSetting.Enabled) return;
 

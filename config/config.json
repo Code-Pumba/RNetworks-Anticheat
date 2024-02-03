@@ -47,6 +47,13 @@
             "Duration": 30,
             "Addons": {}
         },
+        "WeaponDamageModifier": {
+            "Enabled": true,
+            "Action": "Ban",
+            "Message": "[EventProtection] You have been banned for using an Blacklisted event",
+            "Duration": 30,
+            "Addons": {}
+        },
         "Chat-Message-Profane": {
             "Enabled": true,
             "Action": "Ban",
