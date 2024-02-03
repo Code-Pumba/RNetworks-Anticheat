@@ -82,7 +82,6 @@ export class PlayerConnection {
                 }
             }
         }
-
         deferrals.done();
     }
 

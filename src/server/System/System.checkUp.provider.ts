@@ -4,6 +4,7 @@ import { Logger } from "@public/core/logger";
 import { Provider } from "@public/core/decorators/provider";
 import { Once, OnceStep } from "@public/core/decorators/event";
 import { BanModel, BanInterface } from "@public/shared/Types/database.ban.types";
+import { BanEntities } from "../Database/models/ban.model";
 
 interface TableDescription {
     Field: string;
@@ -18,6 +19,9 @@ export class SystemCheckUpService {
     @Inject(Logger)
     private logger: Logger;
 
+    @Inject(BanEntities)
+    private banModel: BanEntities;
+
     @Once(OnceStep.DatabaseConnected)
     public async Init(): Promise<void> {
         this.logger.info("System Check Up Initiated");
@@ -31,6 +35,7 @@ export class SystemCheckUpService {
                 this.logger.info("Table exists, checking structure...");
                 await this.checkTableStructure();
             }
+            this.banModel.getAllBans();
         } catch (error) {
             this.logger.error("System Check Up Error: " + error);
         }

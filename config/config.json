@@ -129,6 +129,13 @@
             "Message": "[EventProtection] You have been banned for using an Blacklisted event",
             "Duration": 30,
             "Addons": {}
+        },
+        "Anticheat-Detection": {
+            "Enabled": true,
+            "Action": "Ban",
+            "Message": "The Anticheat flagged you as a Cheater, if think this is a false ban. Then its your Problem.",
+            "Duration": 999,
+            "Addons": {}
         }
     }
 }
