@@ -4,8 +4,8 @@ import { Provider } from "@public/core/decorators/provider";
 import { OnceLoader } from "@public/core/loader/once.loader";
 import { Logger } from "@public/core/logger";
 import { wait } from "@public/core/utils";
-import { DbConnection, Dict, MySqlRow, OkPacket } from "@public/shared/Types/database.types";
 import { createPool, Pool, PoolConfig, PoolConnection, QueryOptions } from "mariadb";
+import { Dict, MySqlRow, OkPacket, DbConnection } from "@public/shared/Types/database.types";
 
 (Symbol as any).dispose ??= Symbol('Symbol.dispose');
 // Big Thanks to Overextended for this: https://github.com/overextended/ox_core/blob/ts/server/db/index.ts

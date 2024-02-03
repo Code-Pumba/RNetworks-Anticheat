@@ -10,11 +10,10 @@ import { StoreModule } from './client/store/store.module';
 
 
 // Module
-import { ApplicationModule } from './server/Application/application.module'
 import { DatabaseModule } from './server/Database/database.module';
-import { EventProtectionModule } from './server/EventProtections/eventProtection.module';
+import { EventModule } from './server/Events/event.module';
 import { ConfigModule } from './server/Config/config.module';
-import { PlayerModule } from './server/Player/player.module';
+import { SystemModule } from './server/System/System.module';
 
 async function bootstrap() {
     setServiceInstance('Store', store);
@@ -25,10 +24,9 @@ async function bootstrap() {
         ProviderServerLoader,
         StoreModule,
         DatabaseModule,
-        ApplicationModule,
         ConfigModule,
-        EventProtectionModule,
-        PlayerModule
+        EventModule,
+        SystemModule
     )
 
     await app.stop()

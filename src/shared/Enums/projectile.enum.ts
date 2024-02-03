@@ -1,6 +1,3 @@
-/**
- * Enum containing all projectiles in the game.
- */
 export enum Projectiles {
     // Harmless
     PROJECTILE_FLARE = 1173416293,

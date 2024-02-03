@@ -1,12 +1,7 @@
-import { Injectable } from "@public/core/decorators/injectable";
-import { Projectiles } from "@public/shared/Enums/projectile";
-import { Weapons } from "@public/shared/Enums/weapons";
+import { Weapons } from "./Enums/weapons.enum";
+import { Projectiles } from "./Enums/projectile.enum";
 
-@Injectable()
-export class ServerUtils {
-    public readonly RESOURCE_NAME = "rNetworks-Anticheat";
-    public readonly CURRENT_VERSION = GetResourceMetadata(this.RESOURCE_NAME, "version", 0);
-    public readonly RADIANS = 180 / Math.PI;
+export class WeaponTypes {
     public readonly WEAPONS_MELEE = new Set([
         // Melee Weapons
         Weapons.WEAPON_DAGGER,
@@ -173,48 +168,4 @@ export class ServerUtils {
         Projectiles.PROJECTILE_PROXIMITYMINE,
         Projectiles.PROJECTILE_STICKYBOMB,
     ]);
-
-    public hasify(arr: string[]) {
-        return arr.map((x) => this.joaat(x))
-    }
-
-    public joaat(str: string): number {
-        let hash = 0;
-
-        for (let i = 0; i < str.length; ++i) {
-            hash += str.charCodeAt(i);
-            hash += hash << 10;
-            hash ^= hash >>> 6;
-        }
-
-        hash += hash << 3;
-        hash ^= hash >>> 11;
-        hash += hash << 15;
-
-        return (hash >>> 0) << 0;
-    }
-
-    public getDistance(coords1: number[], coords2: number[], includeZ: boolean = false): number {
-        const x = coords1[0] - coords2[0];
-        const y = coords1[1] - coords2[1];
-
-        if (coords1.length >= 3 && coords2.length >= 3 && coords1[2] !== undefined && coords2[2] !== undefined) {
-            const z = coords1[2] - coords2[2];
-
-            return Math.sqrt(x * x + y * y + z * z);
-        }
-
-        return Math.sqrt(x * x + y * y);
-    }
-
-    public getForwardVector(yaw: number): number[] {
-        // Why does that work? I have no idea, but it does
-        const yawRad = (yaw * this.RADIANS * Math.PI) / 180;
-        // Calculate the components of the forward vector
-        return [-Math.sin(yawRad), Math.cos(yawRad)];
-    }
-
-    public hasNoclip(ped: number, source: string) {
-        return (IsEntityPositionFrozen(ped) || GetPlayerInvincible(source)) && (!IsEntityVisible(ped) || GetEntityCollisionDisabled(ped)) && GetVehiclePedIsIn(ped, false) === 0;
-    }
 }

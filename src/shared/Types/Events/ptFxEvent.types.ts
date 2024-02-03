@@ -1,0 +1,25 @@
+export type PtFxEvent = {
+    assetHash: number;
+    axisBitset: number;
+    effectHash: number;
+    entityNetId: number;
+    f100: number;
+    f105: number;
+    f106: number;
+    f107: number;
+    f109: boolean;
+    f110: boolean;
+    f111: boolean;
+    f92: number;
+    isOnEntity: boolean;
+    offsetX: number;
+    offsetY: number;
+    offsetZ: number;
+    posX: number;
+    posY: number;
+    posZ: number;
+    rotX: number;
+    rotY: number;
+    rotZ: number;
+    scale: number;
+};

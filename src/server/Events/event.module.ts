@@ -1,6 +1,7 @@
 import { Module } from "@public/core/decorators/module";
 
+
 @Module({
-    providers: [],
+    providers: []
 })
-export class PlayerModule { }
+export class EventModule { }

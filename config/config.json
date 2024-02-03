@@ -1,5 +1,12 @@
 {
-    "Settings": {},
+    "Settings": {
+        "Debug": false,
+        "Identifier": "steam",
+        "Connect-Settings": {
+            "VPN-Check": true,
+            "Name-Filter": true
+        }
+    },
     "Modules": {
         "Event-Protection": {
             "Enabled": true,
