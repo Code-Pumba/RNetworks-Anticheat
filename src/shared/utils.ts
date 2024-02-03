@@ -3,6 +3,7 @@ import { joaat } from "./joaat";
 import { Vector3 } from "./Types/vector.types";
 import { Logger } from "@public/core/logger";
 import axios from "axios";
+import { uuidv4 } from "@public/core/utils";
 
 @Injectable()
 export class Utils {
@@ -95,6 +96,10 @@ export class Utils {
             console.error('Error during HTTP request:', error);
             return false; // Return false in case of an error
         }
+    }
+
+    public generateInternalUUID(): string {
+        return uuidv4();
     }
 
 }

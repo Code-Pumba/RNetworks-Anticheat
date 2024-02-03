@@ -26,23 +26,20 @@ export class BanController {
     @Exportable("banPlayer")
     @OnEvent("anticheat:system:ban.server")
     /**
-     * Ban a user for a specified reason and duration.
+     * External Ban a user for a specified reason and duration.
      *
      * @param {string} source - the user to be banned
-     * @param {string} type - The Module type
+     * @param {string} module - The Module module
      * @param {string} reason - the reason for the ban
      * @param {number} [duration=30] - the duration of the ban in days
      * @return {Promise<void>} a Promise that resolves when the user is banned
      */
-    public async Ban(source: string, type?: string): Promise<void> {
+    public async Ban(source: string, module?: string): Promise<void> {
         const _source = source;
         const Identifier = this.playerStateService.getAllIdentifier(_source);
-        const banMessage = this.config.getModuleSetting(type).Message;
-        const banDuration = this.config.getModuleSetting(type).Duration;
-
-        if (!type) {
-            type = "Anticheat-Detection";
-        }
+        module = module || "Anticheat-Detection";
+        const banMessage = this.config.getModuleSetting(module).Message;
+        const banDuration = this.config.getModuleSetting(module).Duration;
 
         const success = await this.banModel.insertBan(Identifier, banMessage, banDuration);
 
@@ -51,8 +48,12 @@ export class BanController {
             return;
         }
 
-        this.logger.error(`Failed to ban ${Identifier.Steam || Identifier.FiveM} for ${type}`);
+        this.logger.error(`Failed to ban ${Identifier.Steam || Identifier.FiveM} for ${module}`);
 
+        return;
+    }
+
+    public async internalBan(source: string, module: string): Promise<void> {
         return;
     }
 }

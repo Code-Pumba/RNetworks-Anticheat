@@ -11,7 +11,7 @@ import { StoreModule } from './client/store/store.module';
 
 // Module
 import { DatabaseModule } from './server/Database/database.module';
-import { EventModule } from './server/Events/event.module';
+import { EventModule } from './server/EventsProtection/event.module';
 import { ConfigModule } from './server/Config/config.module';
 import { SystemModule } from './server/System/System.module';
 import { PlayerModule } from './server/Player/player.module';
