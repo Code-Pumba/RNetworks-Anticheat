@@ -61,6 +61,13 @@
             "Duration": 30,
             "Addons": {}
         },
+        "Anti-Explosions": {
+            "Enabled": true,
+            "Action": "Ban",
+            "Message": "[EventProtection] You have been banned for using an Blacklisted event",
+            "Duration": 30,
+            "Addons": {}
+        },
         "Anti-ClearTasks": {
             "Enabled": true,
             "Action": "Ban",
@@ -101,6 +108,13 @@
             "Addons": {
                 "MaxParticleScale": 1.0
             }
+        },
+        "Anti-GiveWeapon": {
+            "Enabled": true,
+            "Action": "Ban",
+            "Message": "[EventProtection] You have been banned for using an Blacklisted event",
+            "Duration": 30,
+            "Addons": {}
         },
         "Anti-ModelChanger": {
             "Enabled": true,
