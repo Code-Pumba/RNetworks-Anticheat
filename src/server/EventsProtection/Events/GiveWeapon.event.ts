@@ -9,7 +9,7 @@ import { GiveWeaponEvent } from "@public/shared/Types/Events";
 
 
 @Provider()
-export class EventClearPedTask {
+export class EventGiveWeapon {
     @Inject(ConfigProvider)
     private configProvider: ConfigProvider;
 
