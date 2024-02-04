@@ -1,6 +1,8 @@
 import { Weapons } from "./Enums/weapons.enum";
 import { Projectiles } from "./Enums/projectile.enum";
+import { Injectable } from "@public/core/decorators/injectable";
 
+@Injectable()
 export class WeaponTypes {
     public readonly WEAPONS_MELEE = new Set([
         // Melee Weapons

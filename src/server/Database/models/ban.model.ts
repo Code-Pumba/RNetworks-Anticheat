@@ -34,4 +34,8 @@ export class BanEntities {
         }
         return false
     }
+
+    public async checkBan(Identifier: PlayerIdentifier): Promise<boolean> {
+        return await this.databaseProvider.exists("SELECT * FROM `bans` WHERE FiveM = ? OR Discord = ?, Steam = ?, OR Token = ?, Token_2 = ?", [Identifier.FiveM, Identifier.Discord, Identifier.Steam, Identifier.PlayerToken, Identifier.PlayerToken_2]);
+    }
 }

@@ -25,15 +25,6 @@ export class BanController {
 
     @Exportable("banPlayer")
     @OnEvent("anticheat:system:ban.server")
-    /**
-     * External Ban a user for a specified reason and duration.
-     *
-     * @param {string} source - the user to be banned
-     * @param {string} module - The Module module
-     * @param {string} reason - the reason for the ban
-     * @param {number} [duration=30] - the duration of the ban in days
-     * @return {Promise<void>} a Promise that resolves when the user is banned
-     */
     public async Ban(source: string, module?: string): Promise<void> {
         const _source = source;
         const Identifier = this.playerStateService.getAllIdentifier(_source);
