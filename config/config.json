@@ -1,5 +1,12 @@
 {
-    "Settings": {},
+    "Settings": {
+        "Debug": true,
+        "Identifier": "steam",
+        "Connect-Settings": {
+            "VPN-Check": true,
+            "Name-Filter": true
+        }
+    },
     "Modules": {
         "Event-Protection": {
             "Enabled": true,
@@ -40,7 +47,21 @@
             "Duration": 30,
             "Addons": {}
         },
+        "WeaponDamageModifier": {
+            "Enabled": true,
+            "Action": "Ban",
+            "Message": "[EventProtection] You have been banned for using an Blacklisted event",
+            "Duration": 30,
+            "Addons": {}
+        },
         "Chat-Message-Profane": {
+            "Enabled": true,
+            "Action": "Ban",
+            "Message": "[EventProtection] You have been banned for using an Blacklisted event",
+            "Duration": 30,
+            "Addons": {}
+        },
+        "Anti-Explosions": {
             "Enabled": true,
             "Action": "Ban",
             "Message": "[EventProtection] You have been banned for using an Blacklisted event",
@@ -88,6 +109,13 @@
                 "MaxParticleScale": 1.0
             }
         },
+        "Anti-GiveWeapon": {
+            "Enabled": true,
+            "Action": "Ban",
+            "Message": "[EventProtection] You have been banned for using an Blacklisted event",
+            "Duration": 30,
+            "Addons": {}
+        },
         "Anti-ModelChanger": {
             "Enabled": true,
             "Action": "Ban",
@@ -121,6 +149,13 @@
             "Action": "Ban",
             "Message": "[EventProtection] You have been banned for using an Blacklisted event",
             "Duration": 30,
+            "Addons": {}
+        },
+        "Anticheat-Detection": {
+            "Enabled": true,
+            "Action": "Ban",
+            "Message": "The Anticheat flagged you as a Cheater, if think this is a false ban. Then its your Problem.",
+            "Duration": 999,
             "Addons": {}
         }
     }

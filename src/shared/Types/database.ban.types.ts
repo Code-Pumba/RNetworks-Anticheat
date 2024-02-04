@@ -1,4 +1,4 @@
-export type Ban = {
+export interface BanInterface {
     id?: number;
     Steam: string;
     FiveM: string;
@@ -7,18 +7,6 @@ export type Ban = {
     Token_2: string;
     Reason?: string;
     Duration?: string;
-}
-
-// BanInterface.ts
-export interface BanInterface {
-    id: number;
-    Steam: string;
-    FiveM: string;
-    Discord: string;
-    Token: string;
-    Token_2: string;
-    Reason: string;
-    Duration: string;
 }
 
 export class BanModel implements BanInterface {

@@ -1,5 +1,10 @@
 export interface Settings {
-
+    Debug: boolean;
+    'Connect-Settings': {
+        'VPN-Check': boolean;
+        'Name-Filter': boolean;
+    };
+    Identifier: string;
 }
 
 export interface Addons {

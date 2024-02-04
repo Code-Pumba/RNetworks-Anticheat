@@ -1,8 +1,7 @@
 import { Module } from "@public/core/decorators/module";
-import { PlayerProvider } from "./playerConnect.provider";
-
+import { PlayerConnection } from "./player.connect.provider";
 
 @Module({
-    providers: [PlayerProvider]
+    providers: [PlayerConnection],
 })
 export class PlayerModule { }

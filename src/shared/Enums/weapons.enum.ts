@@ -1,6 +1,3 @@
-/**
- * Enum containing all the weapons available in the game.
- */
 export enum Weapons {
     // Melee Weapons
     WEAPON_DAGGER = 0x92a27487,
