@@ -8,6 +8,7 @@ import { Logger } from "@public/core/logger";
 import { ConfigProvider } from "../Config/config.provider";
 import { wait } from "@public/core/utils";
 import { Utils } from "@public/shared/utils";
+import { BanEntities } from "../Database/models/ban.model";
 
 
 @Provider()
@@ -21,6 +22,9 @@ export class PlayerConnection {
 
     @Inject(ConfigProvider)
     private config: ConfigProvider;
+
+    @Inject(BanEntities)
+    private banModel: BanEntities;
 
     @Inject(Utils)
     private utils: Utils;
@@ -60,6 +64,12 @@ export class PlayerConnection {
         }
 
         //! Ban Check
+        const isBanned = await this.banModel.checkBan(_identifier);
+        if (isBanned) {
+            deferrals.done("You are Banned from the Server..") //TODO: Here needs to be a new card type. Comming soon
+            this.logger.debug(`User with the Identifier ${_identifier.Steam || _identifier.FiveM} - ${name} - has been banned`)
+            return
+        }
 
         //! Name Filter
         if (connectSettings["Name-Filter"]) {

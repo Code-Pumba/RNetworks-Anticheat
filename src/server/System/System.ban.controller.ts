@@ -26,22 +26,26 @@ export class BanController {
     @Exportable("banPlayer")
     @OnEvent("anticheat:system:ban.server")
     public async Ban(source: string, module?: string): Promise<void> {
-        const _source = source;
-        const Identifier = this.playerStateService.getAllIdentifier(_source);
-        module = module || "Anticheat-Detection";
-        const banMessage = this.config.getModuleSetting(module).Message;
-        const banDuration = this.config.getModuleSetting(module).Duration;
+        try {
+            const _source = source;
+            const Identifier = this.playerStateService.getAllIdentifier(_source);
+            module = module || "Anticheat-Detection";
+            const banMessage = this.config.getModuleSetting(module).Message;
+            const banDuration = this.config.getModuleSetting(module).Duration;
 
-        const success = await this.banModel.insertBan(Identifier, banMessage, banDuration);
+            const success = await this.banModel.insertBan(Identifier, banMessage, banDuration);
 
-        if (success) {
-            DropPlayer(source, banMessage);
+            if (success) {
+                DropPlayer(source, banMessage);
+                return;
+            }
+
+            this.logger.error(`Failed to ban ${Identifier.Steam || Identifier.FiveM} for ${module}`);
+
             return;
+        } catch (error) {
+            this.logger.error(error)
         }
-
-        this.logger.error(`Failed to ban ${Identifier.Steam || Identifier.FiveM} for ${module}`);
-
-        return;
     }
 
     public async internalBan(source: string, module: string): Promise<void> {

@@ -31,7 +31,7 @@ export class EventEntityCreated {
     }
 
     @On(GameEvents.EntityCreated, false)
-    public onClearPedTask(entity: number) {
+    public OnEntityCreated(entity: number) {
         const module = "Anti-Model-Object-Vehicle-Spawner"
         const _moduleSetting = this.configProvider.getModuleSetting(module);
         if (!_moduleSetting.Enabled) return;

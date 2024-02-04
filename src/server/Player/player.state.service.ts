@@ -4,7 +4,7 @@ import { PlayerIdentifier } from "@public/shared/Types/player.types";
 @Injectable()
 export class PlayerStateService {
     public getIdentifier(source: string, identifierType: string): string {
-        return GetPlayerIdentifierByType(source, identifierType)
+        return GetPlayerIdentifierByType(source, identifierType) ? GetPlayerIdentifierByType(source, identifierType) : "none";
     }
 
     public getPlayerToken(source: string, index: number = 0) {
